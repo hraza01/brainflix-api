@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
         const video = {
             id: uuidv4(),
             title: req.body.title,
+            channel: 'BrainStation',
             image: 'https://i.imgur.com/l2Xfgpl.jpg',
             description: req.body.description,
             views: '0',
