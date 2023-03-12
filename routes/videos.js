@@ -14,8 +14,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     if (req.body.title && req.body.description) {
-        const videos = await jsonReader(file);
-
         const video = {
             id: uuidv4(),
             title: req.body.title,
@@ -30,8 +28,10 @@ router.post('/', async (req, res) => {
             comments: [],
         };
 
+        const videos = await jsonReader(file);
         videos.push(video);
         await jsonWriter(file, videos);
+
         res.sendStatus(200);
     } else {
         res.sendStatus(400);
@@ -46,8 +46,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/:id/comments', async (req, res) => {
     if (req.body.name && req.body.comment) {
-        const videos = await jsonReader(file);
-
         const comment = {
             id: uuidv4(),
             name: req.body.name,
@@ -56,6 +54,7 @@ router.post('/:id/comments', async (req, res) => {
             timestamp: Date.now(),
         };
 
+        const videos = await jsonReader(file);
         const videoIndex = videos.findIndex((vid) => vid.id === req.params.id);
         videos[videoIndex].comments.push(comment);
         await jsonWriter(file, videos);
