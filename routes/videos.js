@@ -70,9 +70,7 @@ router.delete('/:id/comments/:commentId', async (req, res) => {
     const commentIndex = videos[videoIndex].comments.findIndex(
         (comment) => comment.id === req.params.commentId
     );
-    const comment = videos[videoIndex].comments.find(
-        (comment) => comment.id === req.params.commentId
-    );
+    const comment = videos[videoIndex].comments[commentIndex];
     videos[videoIndex].comments.splice(commentIndex, 1);
     await jsonWriter(file, videos);
     res.json(comment);
