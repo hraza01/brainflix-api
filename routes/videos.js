@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
     const videos = data.map(({ id, title, channel, image }) => {
         return { id, title, channel, image };
     });
+
     res.json(videos);
 });
 
@@ -41,6 +42,7 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     const videos = await jsonReader(file);
     const video = videos.find((vid) => vid.id === req.params.id);
+
     res.json(video);
 });
 
@@ -72,6 +74,7 @@ router.delete('/:id/comments/:commentId', async (req, res) => {
     const comment = videos[videoIndex].comments[commentIndex];
     videos[videoIndex].comments.splice(commentIndex, 1);
     await jsonWriter(file, videos);
+
     res.json(comment);
 });
 
