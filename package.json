@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -r dotenv/config src/index.js dotenv_config_path=./.env",
-    "start": "node -r dotenv/config src/index.js dotenv_config_path=./.env"
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
   },
   "repository": "git@gitlab.com:hraza01/hasan-raza-brainflix-api.git",
   "author": "Hasan Raza",

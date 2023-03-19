@@ -1,52 +1,47 @@
-import express from 'express'
-import { randomUUID } from 'crypto'
-import { DB } from '#app/config.js'
-import { fetchData, writeData } from '#app/utils/reader.js'
+import { Router } from 'express'
+import { createComment } from '#app/utils/helpers.js'
+import {
+    addComment,
+    deleteComment,
+    likeComment,
+} from '#app/services/commentController.js'
 
 // Params merging is required as this is a nested route
-const commentRouter = express.Router({ mergeParams: true })
+const commentRouter = Router({ mergeParams: true })
 
-commentRouter.post('/', async (req, res) => {
-    try {
-        if (req.body.name && req.body.comment) {
-            // utilize a helper function to generate a new comment
-            const comment = {
-                id: randomUUID(),
-                name: req.body.name,
-                comment: req.body.comment,
-                likes: 0,
-                timestamp: Date.now(),
+commentRouter
+    .post('/', async (req, res) => {
+        try {
+            if (req.body.name && req.body.comment) {
+                const comment = createComment(req.body.name, req.body.comment)
+                await addComment(req.params.videoId, comment)
+                res.json(comment)
             }
-
-            const videos = await fetchData(DB)
-            const videoIndex = videos.findIndex(
-                (vid) => vid.id === req.params.id
-            )
-            videos[videoIndex].comments.push(comment)
-            await writeData(DB, videos)
-
-            res.json(comment)
+        } catch (e) {
+            console.error(e)
         }
-    } catch (e) {
-        console.error(e)
-    }
-})
-
-commentRouter.delete('/:commentId', async (req, res) => {
-    try {
-        const videos = await fetchData(DB)
-        const videoIndex = videos.findIndex((vid) => vid.id === req.params.id)
-        const commentIndex = videos[videoIndex].comments.findIndex(
-            (comment) => comment.id === req.params.commentId
-        )
-        const comment = videos[videoIndex].comments[commentIndex]
-        videos[videoIndex].comments.splice(commentIndex, 1)
-        await writeData(DB, videos)
-
-        res.json(comment)
-    } catch (e) {
-        console.error(e)
-    }
-})
+    })
+    .delete('/:commentId', async (req, res) => {
+        try {
+            const comment = await deleteComment(
+                req.params.videoId,
+                req.params.commentId
+            )
+            res.json(comment)
+        } catch (e) {
+            console.error(e)
+        }
+    })
+    .put('/:commentId/like', async (req, res) => {
+        try {
+            const comment = await likeComment(
+                req.params.videoId,
+                req.params.commentId
+            )
+            res.json(comment)
+        } catch (e) {
+            console.error(e)
+        }
+    })
 
 export default commentRouter
