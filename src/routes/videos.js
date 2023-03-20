@@ -54,7 +54,7 @@ videoRouter
 videoRouter.put('/:videoId/like', async (req, res) => {
     try {
         const video = await likeVideo(req.params.videoId)
-        res.sendStatus(200).json(video)
+        res.json(video)
     } catch (e) {
         console.error(e)
     }
