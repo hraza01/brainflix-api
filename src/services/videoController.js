@@ -15,13 +15,7 @@ async function addVideo(video) {
 }
 
 async function likeVideo(videoId) {
-    const videos = await fetchData()
-    const { index } = await findVideo(videoId)
-
-    if (!index) {
-        throw ReferenceError(`video ${videoId} not found`)
-    }
-
+    const { index, videos } = await findVideo(videoId)
     videos[index].likes++
     await writeData(videos)
 
@@ -29,13 +23,7 @@ async function likeVideo(videoId) {
 }
 
 async function viewVideo(videoId) {
-    const videos = await fetchData()
-    const { index } = await findVideo(videoId)
-
-    if (!index) {
-        throw ReferenceError(`video ${videoId} not found`)
-    }
-
+    const { index, videos } = await findVideo(videoId)
     videos[index].views++
     await writeData(videos)
 

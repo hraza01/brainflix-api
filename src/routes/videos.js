@@ -44,7 +44,7 @@ videoRouter
     })
     .put('/:videoId', async (req, res) => {
         try {
-            const { video } = await viewVideo(req.params.videoId)
+            const video = await viewVideo(req.params.videoId)
             res.json(video)
         } catch (e) {
             console.error(e)

@@ -32,7 +32,7 @@ async function findVideo(videoId) {
     const index = videos.findIndex((vid) => vid.id === videoId)
     const video = videos[index]
 
-    return { index, video }
+    return { index, video, videos }
 }
 
 async function findComment(videoId, commentId) {
@@ -43,7 +43,7 @@ async function findComment(videoId, commentId) {
     )
     const comment = videos[index].comments[commentIndex]
 
-    return { commentIndex, comment }
+    return { commentIndex, comment, index, videos }
 }
 
 export { createVideo, createComment, findVideo, findComment }
