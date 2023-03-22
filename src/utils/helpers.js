@@ -11,17 +11,17 @@ function createComment(name, value) {
     }
 }
 
-function createVideo(title, desc) {
+function createVideo(title, desc, image = null) {
     return {
         id: randomUUID(),
         title: title,
         channel: 'BrainStation',
-        image: 'https://i.imgur.com/l2Xfgpl.jpg',
+        image: image ?? 'https://i.imgur.com/ZYcodqt.jpg',
         description: desc,
         views: 0,
         likes: 0,
-        duration: '4:01',
-        video: 'https://project-2-api.herokuapp.com/stream',
+        duration: '00:20',
+        video: 'https://firebasestorage.googleapis.com/v0/b/dice-game-c5749.appspot.com/o/BrainStation-Sample-Video.mp4?alt=media&token=1026254e-71a6-4145-9b3c-f5da7fa7b98c',
         timestamp: Date.now(),
         comments: [],
     }

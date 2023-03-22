@@ -5,7 +5,7 @@ import {
     addVideo,
     viewVideo,
     likeVideo,
-} from '#app/services/videoController.js'
+} from '#app/controllers/videoController.js'
 
 const videoRouter = Router()
 
@@ -20,13 +20,19 @@ videoRouter
     })
     .post('/', async (req, res) => {
         try {
-            if (req.body.title && req.body.description) {
-                const video = createVideo(req.body.title, req.body.description)
+            if (!req.body.title || !req.body.description) {
+                res.status(401).json({
+                    message: 'invalid title and/or description',
+                })
+            } else {
+                const video = createVideo(
+                    req.body.title,
+                    req.body.description,
+                    req.body.image
+                )
                 await addVideo(video)
 
-                res.sendStatus(200).json(video)
-            } else {
-                res.sendStatus(400)
+                res.json(video)
             }
         } catch (e) {
             console.error(e)

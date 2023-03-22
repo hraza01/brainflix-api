@@ -4,7 +4,7 @@ import {
     addComment,
     deleteComment,
     likeComment,
-} from '#app/services/commentController.js'
+} from '#app/controllers/commentController.js'
 
 // Params merging is required as this is a nested route
 const commentRouter = Router({ mergeParams: true })
