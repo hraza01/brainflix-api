@@ -11,12 +11,12 @@ function createComment(name, value) {
     }
 }
 
-function createVideo(title, desc, image = null) {
+function createVideo(title, desc, url = null) {
     return {
         id: randomUUID(),
         title: title,
         channel: 'BrainStation',
-        image: image ?? 'https://i.imgur.com/ZYcodqt.jpg',
+        image: url || 'https://i.imgur.com/ZYcodqt.jpg',
         description: desc,
         views: 0,
         likes: 0,

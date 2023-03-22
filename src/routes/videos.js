@@ -28,10 +28,10 @@ videoRouter
                 const video = createVideo(
                     req.body.title,
                     req.body.description,
-                    req.body.image
+                    req.body.url
                 )
                 await addVideo(video)
-
+                console.log(req.body)
                 res.json(video)
             }
         } catch (e) {
