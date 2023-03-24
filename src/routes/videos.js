@@ -39,23 +39,15 @@ videoRouter
         }
     })
 
-videoRouter
-    .get('/:videoId', async (req, res) => {
-        try {
-            const { video } = await findVideo(req.params.videoId)
-            res.json(video)
-        } catch (e) {
-            console.error(e)
-        }
-    })
-    .put('/:videoId', async (req, res) => {
-        try {
-            const video = await viewVideo(req.params.videoId)
-            res.json(video)
-        } catch (e) {
-            console.error(e)
-        }
-    })
+videoRouter.get('/:videoId', async (req, res) => {
+    try {
+        const { video } = await findVideo(req.params.videoId)
+        await viewVideo(req.params.videoId)
+        res.json(video)
+    } catch (e) {
+        console.error(e)
+    }
+})
 
 videoRouter.put('/:videoId/like', async (req, res) => {
     try {
