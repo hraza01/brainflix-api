@@ -2,20 +2,29 @@
   "name": "hasan-raza-brainflix-api",
   "version": "1.0.0",
   "description": "brainflix api server",
-  "main": "app.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon ./src/index.js",
+    "start": "node ./src/index.js"
   },
   "repository": "git@gitlab.com:hraza01/hasan-raza-brainflix-api.git",
-  "author": "Hasan Raza <hasan.raza@blackfrosttechnologies.com>",
+  "author": "Hasan Raza",
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "firebase": "^9.18.0",
+    "moment": "^2.29.4"
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
+    "dotenv": "^16.0.3",
     "nodemon": "^2.0.21",
     "prettier": "^2.8.4"
+  },
+  "imports": {
+    "#app/*": "./src/*",
+    "#routes": "./src/routes/index.js"
   }
 }
