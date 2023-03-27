@@ -1,12 +1,11 @@
 import { Router } from 'express'
-import { ref, getDownloadURL } from 'firebase/storage'
-import { storage } from '#app/services/firebase.js'
 
 const streamRouter = Router()
 
 streamRouter.get('/', async (req, res) => {
-    const video = ref(storage, 'BrainStation-Sample-Video.mp4')
-    const url = await getDownloadURL(video)
+    const url = new URL(
+        'https://firebasestorage.googleapis.com/v0/b/dice-game-c5749.appspot.com/o/BrainStation-Sample-Video.mp4?alt=media&token=1026254e-71a6-4145-9b3c-f5da7fa7b98c'
+    )
     res.redirect(url)
 })
 
